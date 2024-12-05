@@ -3,6 +3,6 @@ let copperGrowth = 1;
 myTimer = setInterval(endOfTurnCalc, 100);
 
 function endOfTurnCalc() {
-    coppers = coppers + copperGrowth / 10;
+    coppers = Math.round(coppers + copperGrowth / 10).toPrecision(2);
     document.getElementById("spnCopperValue").innerHTML = coppers;
 }
