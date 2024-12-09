@@ -3,19 +3,87 @@ body {
     text-align: center;
 }
 
-html * {
-    color: white !important;
+@font-face {
+    font-family: 'Terminal';
+    src: url('assets/Terminal.ttf') format('truetype');
 }
 
-.craftingLine {
-    width: 480px;
-    height: 160px;
-    align-content: baseline;
+html * {
+    font-family: 'Terminal';
+}
+
+text#textMoney {
+    font-size: 20px;
+    color: white;
+}
+
+span#spnMoneyValue {
+    font-size: 20px;
+    color: greenyellow;
+}
+
+#craftingLine {
+    border: 3px solid white;
+    border-radius: 20px;
+    display: inline-flex;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.genericSlot {
+    display: flex;
+    flex-direction: column;
 }
 
 .processSlot {
-    width: 80px;
-    height: 140px;
-    border: 3px;
-    border-color: white;
+    display: inline;
+    width: 170px;
+    height: 250px;
+    margin: 10px;
+    border: 3px solid white;
+    border-radius: 15px;
+}
+
+/* div.itemInCraft {
+    display: inline;
+} */
+
+.slotName {
+    color: white;
+}
+
+div.itemPerkRow {
+    margin-inline: 10px;
+    height: 25px;
+    display: flex;
+}
+
+p.numThing {
+    color: white;
+    /* float: left; */
+}
+
+p.txtThing {
+    color: white;
+    width: 100%;
+    text-align: right;
+}
+
+div.controlButtons {
+    margin-top: 15px;
+    position: absolute;
+    width: 50%;
+    height: 50px;
+    left: 25%;
+    display: flex;
+    flex-direction: row;
+}
+
+div.controlButtons * {
+    width: 20%;
+    height: 100%;
+    border: 3px solid white;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
 }

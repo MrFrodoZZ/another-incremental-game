@@ -6,14 +6,33 @@
         <title>Another Incremental Game</title>
     </head>
     <body>
-        Money: <span id="spnMoneyValue"></span><br>
+        <text id="textMoney">Money: <span id="spnMoneyValue"></span></text><br>
         <div id="craftingLine">
-            <div class="processSlot"></div>
-            <div class="processSlot"></div>
-            <div class="processSlot"></div>
-            <div class="processSlot"></div>
-            <div class="processSlot"></div>
+            <div class="genericSlot" id="firstSlot">
+                <div class="processSlot"></div>
+                <div><p class="slotName">Material</p></div>
+            </div>
+            <div class="genericSlot" id="secondSlot">
+                <div class="processSlot"></div>
+                <div><p class="slotName">Quality</p></div>
+            </div>
+            <div class="genericSlot" id="thirdSlot">
+                <div class="processSlot"></div>
+                <div><p class="slotName">Temper</p></div>
+            </div>
+            <div class="genericSlot" id="fourthSlot">
+                <div class="processSlot"></div>
+                <div><p class="slotName">Balance</p></div>
+            </div>
+            <div class="genericSlot" id="fifthSlot">
+                <div class="processSlot"></div>
+                <div><p class="slotName">Enchant</p></div>
+            </div>
+        </div><br>
+        <div class="controlButtons">
+            <button onclick="startCraft">Craft!</button>
         </div>
     </body>
+
     <script src="app.js"></script>
 </html>
