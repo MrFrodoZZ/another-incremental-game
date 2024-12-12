@@ -1,6 +1,14 @@
 // Opening comment
-const moneySpan = document.getElementById("spnMoneyValue")
+const moneySpan = document.querySelector("span#spnMoneyValue")
 let moneyValue = 0
+
+const Slots = {
+    Material: document.querySelector("div#firstSlot div.processSlot"),
+    Quality: document.querySelector("div#secondSlot div.processSlot"),
+    Temper: document.querySelector("div#thirdSlot div.processSlot"),
+    Balance: document.querySelector("div#fourthSlot div.processSlot"),
+    Enchant: document.querySelector("div#fifthSlot div.processSlot")
+}
 
 const Materials = {
     0: "None",
@@ -82,22 +90,87 @@ const Enchants = {
     0: "None"
 }
 
+class ItemManager {
+    constructor() {
+        this.Items = []
+        this.Crafted = []
+    }
+
+    AddCrafted(item) {
+        this.Crafted.push(item)
+    }
+
+    AddItem(item) {
+        this.Items.push(item)
+    }
+
+    RemoveCrafted(item) {
+        this.Crafted.filter(x => x.ID != item.ID)
+    }
+
+    RemoveItem(item) {
+        this.Items.filter(x => x.ID != item.ID)
+    }
+
+    NextCraftStage(item, curr) {
+        switch (curr) {
+            case 0:
+                Slots.Material.innerHTML = ""
+                item.insertTo(Slots.Quality)
+                break
+            case 1:
+                Slots.Quality.innerHTML = ""
+                item.insertTo(Slots.Temper)
+                break
+            case 2:
+                Slots.Temper.innerHTML = ""
+                item.insertTo(Slots.Balance)
+                break
+            case 3:
+                Slots.Balance.innerHTML = ""
+                item.insertTo(Slots.Enchant)
+                break
+            case 4:
+                Slots.Enchant.innerHTML = ""
+                break;
+        }
+        item.CraftStage++
+    }
+
+    ItemExists(item) {
+        if (this.Items.find(x => x.ID == item)) {
+            return true
+        }
+        return false
+    }
+    
+    BeginCrafting() {
+        var newItem = new Item()
+        var timer = newItem.timeSpan
+        this.AddItem(newItem)
+    }
+}
+
 class Item {
     constructor() {
-        this.nMaterial = 0,
-        this.tMaterial = Materials[0],
-        this.nQuality = 0,
-        this.tQuality = Qualities[0],
-        this.nTemper = 0,
-        this.tTemper = Tempers[0],
-        this.nBalance = 0,
-        this.tBalance = Balances[0],
-        this.nEnchant = 0,
-        this.tEnchant = Enchant[0]
+        this.ID = Date.now()
+        this.CraftStage = 0
+        this.nMaterial = 0
+        this.tMaterial = Materials[0]
+        this.nQuality = 0
+        this.tQuality = Qualities[0]
+        this.nTemper = 0
+        this.tTemper = Tempers[0]
+        this.nBalance = 0
+        this.tBalance = Balances[0]
+        this.nEnchant = 0
+        this.tEnchant = Enchants[0]
+        this.timeLeft = 5
+        this.timeSpan = document.createElement('span', {id: `spnTimer${this.ID}`, style: "color: white; margin-top: 5px;"})
     }
 
     getCard() {
-        return `<div class="itemCard">
+        return `<div class="itemCard${this.ID}">
                     <div class="itemPerkRow">
                         <p class="numThing">[${this.nMaterial}]</p>
                         <p class="txtThing">${this.tMaterial}</p>
@@ -114,16 +187,23 @@ class Item {
                         <p class="numThing">[${this.nBalance}]</p>
                         <p class="txtThing">${this.tBalance}</p>
                     </div>
+                    <div class="itemPerkRow">
+                        ${this.timeSpan}
+                    </div>
                 </div>`
     }
+
+    insertTo(div) {
+        div.innerHTML = this.getCard()
+    }
 }
+
+const IM = new ItemManager()
 
 function updateMoneyValue() {
     moneySpan.innerHTML = '$' + moneyValue
 }
 
 function startCraft() {
-    var newItem = Item()
+    IM.BeginCrafting()
 }
-
-setInterval(updateMoneyValue, 100)
